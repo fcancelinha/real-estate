@@ -8,4 +8,21 @@ html,
 body {
   scroll-behavior: smooth;
   font-family: "Inter";
+  background-color: #3fa8d5;
+  overflow-x: hidden;
+  /* Hide scrollbars for webkit browsers (Chrome, Safari, Edge) */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+/* Hide scrollbars for webkit browsers */
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+}
+
+/* Ensure no horizontal scrolling on all elements */
+* {
+  max-width: 100%;
+  overflow-x: hidden;
 }
