@@ -78,7 +78,7 @@ const Navbar = () => {
                 verticalAlign: 'middle',
                 alignItems: 'center',
                 gap: 2,
-                overflow: 'hidden', // Prevent scrollbar
+                overflow: 'hidden',
               }}
             >
               <Box
@@ -141,15 +141,16 @@ const Navbar = () => {
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
                 sx={{
-                  backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                  overflow: 'hidden',
+                  backgroundColor: 'rgba(255, 255, 255, 0.4)',
                   color: 'white',
                   fontFamily: 'Inter',
                   fontWeight: 300,
-                  paddingX: 2,
-                  fontSize: 13,
+                  padding: 2,
+                  fontSize: 14,
                   cursor: 'pointer',
                   transition: 'background-color 0.25s ease-out',
-                  flexShrink: 0, // Prevent shrinking
+                  flexShrink: 0,
                   '&:hover': {
                     backgroundColor: 'rgba(255, 255, 255, 0.2)',
                   },

@@ -1,24 +1,27 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Box, Chip, Grid, Stack, Typography, Button } from '@mui/material';
 import { motion, useTransform, useScroll, useInView } from 'framer-motion';
+import h1b from '/houses/h1.jpg';
+import h2b from '/houses/h2.jpg';
+import h3b from '/houses/h3.jpg';
 
 const houses = [
   {
-    src: '/houses/h1.jpg',
+    src: `${h1b}`,
     title: 'Modern Villa',
     subtitle: 'Luxury Living',
     rent: '$3,500/month',
     location: 'Beverly Hills, CA',
   },
   {
-    src: '/houses/h2.jpg',
+    src: `${h2b}`,
     title: 'Contemporary Home',
     subtitle: 'Urban Comfort',
     rent: '$2,800/month',
     location: 'Manhattan, NY',
   },
   {
-    src: '/houses/h3.jpg',
+    src: `${h3b}`,
     title: 'Designer Apartment',
     subtitle: 'City View',
     rent: '$4,200/month',
