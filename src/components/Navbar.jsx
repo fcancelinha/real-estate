@@ -61,7 +61,7 @@ const Navbar = () => {
                 letterSpacing: 10,
               }}
             >
-              WANG
+              WANG ESTATES
             </Typography>
           </Box>
           <Box
