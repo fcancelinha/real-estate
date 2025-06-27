@@ -1,8 +1,8 @@
-import React from "react";
-import PropTypes from "prop-types";
-import LocalPhoneOutlinedIcon from "@mui/icons-material/LocalPhoneOutlined";
-import MailOutlinedIcon from "@mui/icons-material/MailOutlined";
-import logo from "/logos/l5nbb.png";
+import React from 'react';
+import PropTypes from 'prop-types';
+import LocalPhoneOutlinedIcon from '@mui/icons-material/LocalPhoneOutlined';
+import MailOutlinedIcon from '@mui/icons-material/MailOutlined';
+import logo from '/logos/l5nbb.png';
 import {
   AppBar,
   Avatar,
@@ -12,49 +12,49 @@ import {
   Icon,
   Toolbar,
   Typography,
-} from "@mui/material";
+} from '@mui/material';
 
 const Navbar = () => {
   return (
     <AppBar
       elevation={0}
-      position="absolute"
+      position='absolute'
       sx={{
         marginTop: 2,
-        backgroundColor: "transparent",
+        backgroundColor: 'transparent',
       }}
     >
-      <Container maxWidth="lg">
+      <Container maxWidth='xl'>
         <Toolbar
           disableGutters
           sx={{
-            display: "flex",
-            justifyContent: "space-between",
+            display: 'flex',
+            justifyContent: 'space-between',
           }}
         >
           <Box
             sx={{
-              display: "flex",
-              alignContent: "center",
-              justifyContent: "center",
-              verticalAlign: "middle",
-              alignItems: "center",
+              display: 'flex',
+              alignContent: 'center',
+              justifyContent: 'center',
+              verticalAlign: 'middle',
+              alignItems: 'center',
               gap: 1,
             }}
           >
             <Box
-              alt="logo brand"
+              alt='logo brand'
               sx={{
                 backgroundImage: `url(${logo})`,
-                backgroundSize: "contain",
-                backgroundRepeat: "no-repeat",
+                backgroundSize: 'contain',
+                backgroundRepeat: 'no-repeat',
                 width: 48,
                 height: 48,
               }}
             />
             <Typography
               sx={{
-                fontFamily: "Inter",
+                fontFamily: 'Inter',
                 fontWeight: 175,
                 letterSpacing: 10,
               }}
@@ -64,25 +64,25 @@ const Navbar = () => {
           </Box>
           <Box
             sx={{
-              display: "flex",
-              justifyContent: "end",
+              display: 'flex',
+              justifyContent: 'end',
             }}
           >
             <Box
               sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignContent: "center",
-                verticalAlign: "middle",
-                alignItems: "center",
+                display: 'flex',
+                justifyContent: 'center',
+                alignContent: 'center',
+                verticalAlign: 'middle',
+                alignItems: 'center',
                 gap: 2,
               }}
             >
               <Box
                 sx={{
-                  display: "flex",
-                  alignContent: "center",
-                  alignItems: "center",
+                  display: 'flex',
+                  alignContent: 'center',
+                  alignItems: 'center',
                   gap: 1,
                 }}
               >
@@ -93,7 +93,7 @@ const Navbar = () => {
                 />
                 <Typography
                   sx={{
-                    fontFamily: "Inter",
+                    fontFamily: 'Inter',
                     fontWeight: 175,
                     fontSize: 12,
                   }}
@@ -103,9 +103,9 @@ const Navbar = () => {
               </Box>
               <Box
                 sx={{
-                  display: "flex",
-                  alignContent: "center",
-                  alignItems: "center",
+                  display: 'flex',
+                  alignContent: 'center',
+                  alignItems: 'center',
                   gap: 1,
                 }}
               >
@@ -116,7 +116,7 @@ const Navbar = () => {
                 />
                 <Typography
                   sx={{
-                    fontFamily: "Inter",
+                    fontFamily: 'Inter',
                     fontWeight: 175,
                     fontSize: 12,
                   }}
@@ -124,7 +124,18 @@ const Navbar = () => {
                   info@email.com
                 </Typography>
               </Box>
-              <Chip variant="ouline" color="white" label="Contact Us" />
+              <Chip
+                color='white'
+                label='Contact Us'
+                sx={{
+                  backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                  color: 'white',
+                  fontFamily: 'Inter',
+                  fontWeight: 300,
+                  paddingX: 2,
+                  fontSize: 13,
+                }}
+              />
             </Box>
           </Box>
         </Toolbar>
