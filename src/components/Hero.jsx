@@ -90,7 +90,6 @@ export default function RotatingWordsHero() {
             variant='h4'
             color='white'
             sx={{
-              fontFamily: 'Inter',
               fontWeight: 100,
             }}
             mt={1}

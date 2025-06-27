@@ -2,16 +2,33 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 html,
 body {
   scroll-behavior: smooth;
-  font-family: "Inter";
   background-color: #3fa8d5;
-  /* Only hide horizontal overflow, allow vertical scrolling */
   overflow-x: hidden;
   overflow-y: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: inherit;
 }
 
 /* Hide scrollbars while keeping scroll functionality */
@@ -19,21 +36,4 @@ html::-webkit-scrollbar,
 body::-webkit-scrollbar {
   width: 0px;
   background: transparent;
-}
-
-/* For Firefox */
-html {
-  scrollbar-width: none;
-}
-
-/* For Internet Explorer and Edge */
-html,
-body {
-  -ms-overflow-style: none;
-}
-
-/* Prevent horizontal scrolling on all elements, but allow vertical */
-* {
-  max-width: 100%;
-  overflow-x: hidden;
 }

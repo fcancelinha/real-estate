@@ -79,7 +79,7 @@ const MultiLayerParallax = ({
           sx={{
             width: '100%',
             height: '100%',
-            backgroundColor: '#3fa8d5',
+            // backgroundColor: '#3fa8d5',
             backgroundRepeat: 'no-repeat',
             backgroundSize: 'cover',
             backgroundPosition: 'center',

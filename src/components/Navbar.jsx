@@ -56,7 +56,6 @@ const Navbar = () => {
             />
             <Typography
               sx={{
-                fontFamily: 'Inter',
                 fontWeight: 175,
                 letterSpacing: 10,
               }}
@@ -100,7 +99,6 @@ const Navbar = () => {
                 />
                 <Typography
                   sx={{
-                    fontFamily: 'Inter',
                     fontWeight: 175,
                     fontSize: 12,
                   }}
@@ -127,7 +125,6 @@ const Navbar = () => {
                 />
                 <Typography
                   sx={{
-                    fontFamily: 'Inter',
                     fontWeight: 175,
                     fontSize: 12,
                   }}
@@ -142,13 +139,12 @@ const Navbar = () => {
                 onMouseLeave={() => setIsHovered(false)}
                 sx={{
                   overflow: 'hidden',
+                  cursor: 'pointer',
                   backgroundColor: 'rgba(255, 255, 255, 0.4)',
                   color: 'white',
-                  fontFamily: 'Inter',
                   fontWeight: 300,
                   padding: 2,
                   fontSize: 14,
-                  cursor: 'pointer',
                   transition: 'background-color 0.25s ease-out',
                   flexShrink: 0,
                   '&:hover': {

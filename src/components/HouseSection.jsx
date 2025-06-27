@@ -33,29 +33,24 @@ const houses = [
 const styles = {
   textWhiteBold: {
     color: 'white',
-    fontFamily: 'Inter, sans-serif',
     fontWeight: 600,
     mb: 1,
   },
   textWhiteLight: {
     color: 'rgba(255,255,255,0.9)',
-    fontFamily: 'Inter, sans-serif',
     fontWeight: 300,
     mb: 1,
   },
   textGreen: {
     color: '#4CAF50',
-    fontFamily: 'Inter, sans-serif',
     fontWeight: 500,
     mb: 1,
   },
   textWhiteFaded: {
     color: 'rgba(255,255,255,0.8)',
-    fontFamily: 'Inter, sans-serif',
     fontWeight: 300,
   },
   headerTitle: {
-    fontFamily: 'Inter, sans-serif',
     fontWeight: 350,
     letterSpacing: 3,
     fontSize: { xs: '1.5rem', md: '2rem' },
@@ -65,7 +60,6 @@ const styles = {
     whiteSpace: 'normal',
   },
   headerSubtitle: {
-    fontFamily: 'Inter, sans-serif',
     fontWeight: 250,
     letterSpacing: 1,
     color: '#666',
@@ -73,7 +67,6 @@ const styles = {
     textAlign: { xs: 'center', md: 'right' },
   },
   chip: {
-    fontFamily: 'Inter, sans-serif',
     fontWeight: 300,
   },
 };
@@ -163,7 +156,6 @@ const HouseCard = ({ house, index }) => {
           sx={{
             backgroundColor: 'white',
             color: '#333',
-            fontFamily: 'Inter, sans-serif',
             fontWeight: 500,
             alignSelf: 'flex-start',
             '&:hover': {
