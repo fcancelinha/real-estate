@@ -54,10 +54,10 @@ const styles = {
   headerTitle: {
     fontFamily: 'Inter, sans-serif',
     fontWeight: 350,
-    letterSpacing: 2,
+    letterSpacing: 3,
     fontSize: { xs: '1.5rem', md: '2rem' },
     mb: { xs: 3, md: 0 },
-    lineHeight: 1.3,
+    lineHeight: 1.5,
     maxWidth: '100%',
     whiteSpace: 'normal',
   },
@@ -211,8 +211,8 @@ const HouseSection = () => {
         sx={{
           backgroundColor: '#fff',
           padding: { xs: '3rem 1rem', md: '2rem 3rem' },
-          borderTopLeftRadius: { xs: 0, md: 40 },
-          borderTopRightRadius: { xs: 0, md: 40 },
+          borderTopLeftRadius: { xs: 0, md: 20 },
+          borderTopRightRadius: { xs: 0, md: 20 },
         }}
       >
         {/* Header */}
@@ -238,7 +238,11 @@ const HouseSection = () => {
 
           <Stack
             spacing={2}
-            sx={{ alignItems: { xs: 'center', md: 'flex-end' }, maxWidth: 400 }}
+            sx={{
+              alignItems: { xs: 'center', md: 'flex-end' },
+              maxWidth: 400,
+              mt: 2,
+            }}
           >
             <Typography variant='h6' sx={styles.headerSubtitle}>
               Browse our selection of top-rated modern architectural homes
@@ -249,7 +253,7 @@ const HouseSection = () => {
         </Box>
 
         {/* Cards */}
-        <Grid container spacing={5} justifyContent='center'>
+        <Grid container spacing={5} justifyContent='center' pb={15}>
           {houses.map((house, index) => (
             <Grid item xs={12} sm={6} md={4} key={index}>
               <HouseCard house={house} index={index} />

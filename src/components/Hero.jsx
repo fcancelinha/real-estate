@@ -42,7 +42,7 @@ export default function RotatingWordsHero() {
   return (
     <Box
       sx={{
-        minHeight: '70vh',
+        minHeight: '80vh',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'flex-start',

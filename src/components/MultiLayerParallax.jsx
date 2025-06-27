@@ -1,58 +1,63 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useRef, useState } from 'react';
 import { Box } from '@mui/material';
-import { motion, useAnimation } from 'framer-motion';
-import overlayImage from '/backgrounds/nobg.png';
+import { motion } from 'framer-motion';
 
 const MultiLayerParallax = ({
   children,
   height = '100vh',
+  overlayImage,
   backgroundSpeed = 0.5,
   overlaySpeed = -0.4,
 }) => {
+  const containerRef = useRef(null);
   const [scrollY, setScrollY] = useState(0);
   const [containerTop, setContainerTop] = useState(0);
-  const containerRef = useRef(null);
-  const controls = useAnimation();
+  const [containerHeight, setContainerHeight] = useState(0);
+
+  const [backgroundOffset, setBackgroundOffset] = useState(0);
+  const [overlayOffset, setOverlayOffset] = useState(0);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
-    };
-
-    const updateContainerPosition = () => {
+    const handleScroll = () => setScrollY(window.scrollY);
+    const updatePosition = () => {
       if (containerRef.current) {
         const rect = containerRef.current.getBoundingClientRect();
         setContainerTop(window.scrollY + rect.top);
+        setContainerHeight(containerRef.current.offsetHeight);
       }
     };
 
-    updateContainerPosition();
+    updatePosition();
     window.addEventListener('scroll', handleScroll);
-    window.addEventListener('resize', updateContainerPosition);
-
+    window.addEventListener('resize', updatePosition);
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', updateContainerPosition);
+      window.removeEventListener('resize', updatePosition);
     };
   }, []);
 
-  useEffect(() => {
-    controls.start('visible');
-  }, [controls]);
+  // Calculate in-view and scroll offsets
+  const containerBottom = containerTop + containerHeight;
+  const stopThreshold = window.innerHeight * 0.2;
 
-  // Only apply parallax when the container is in view
-  const containerBottom =
-    containerTop + (containerRef.current?.offsetHeight || 0);
   const isInView =
-    scrollY + window.innerHeight >= containerTop && scrollY <= containerBottom;
+    scrollY + window.innerHeight >= containerTop &&
+    scrollY <= containerBottom - stopThreshold;
+
   const relativeScroll = Math.max(0, scrollY - containerTop);
+
+  useEffect(() => {
+    if (isInView) {
+      setBackgroundOffset(relativeScroll * backgroundSpeed);
+      setOverlayOffset(-relativeScroll * Math.abs(overlaySpeed));
+    }
+  }, [isInView, relativeScroll, backgroundSpeed, overlaySpeed]);
 
   return (
     <Box
       ref={containerRef}
       sx={{
-        height: height,
+        height,
         position: 'relative',
         overflow: 'hidden',
       }}
@@ -65,9 +70,9 @@ const MultiLayerParallax = ({
           left: 0,
           width: '100%',
           height: '120%',
-          transform: isInView
-            ? `translateY(${relativeScroll * backgroundSpeed}px)`
-            : 'translateY(0px)',
+          transform: `translateY(${backgroundOffset}px)`,
+          willChange: 'transform',
+          zIndex: 1,
         }}
       >
         <Box
@@ -82,21 +87,20 @@ const MultiLayerParallax = ({
         />
       </motion.div>
 
-      {/* Overlay Layer - Fixed to this section */}
+      {/* Overlay Layer */}
       {overlayImage && (
         <motion.div
           initial={{ opacity: 0, filter: 'blur(10px)' }}
           animate={{ opacity: 1, filter: 'blur(0px)' }}
-          transition={{ duration: 0.8, ease: 'easeIn' }}
+          transition={{ duration: 0.8, ease: 'easeInOut' }}
           style={{
             position: 'absolute',
             top: 0,
             left: 0,
             width: '100%',
             height: '140%',
-            transform: isInView
-              ? `translateY(${-relativeScroll * Math.abs(overlaySpeed)}px)`
-              : 'translateY(0px)',
+            transform: `translateY(${overlayOffset}px)`,
+            willChange: 'transform',
             zIndex: 5,
           }}
         >
@@ -113,11 +117,11 @@ const MultiLayerParallax = ({
         </motion.div>
       )}
 
-      {/* Content Layer */}
+      {/* Content */}
       <Box
         sx={{
           position: 'relative',
-          zIndex: 2,
+          zIndex: 10,
           height: '100%',
           width: '100%',
         }}
