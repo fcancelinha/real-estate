@@ -6,6 +6,8 @@ export default defineConfig({
   plugins: [react()],
   base: '/real-estate',
   build: {
-    outDir: 'dist'
-  }
+    outDir: 'dist',
+    assetsDir: 'assets',
+  },
+  publicDir: 'public'
 })
