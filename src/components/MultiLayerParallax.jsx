@@ -41,18 +41,6 @@ const MultiLayerParallax = ({
     controls.start('visible');
   }, [controls]);
 
-  const variants = {
-    hidden: {
-      filter: 'blur(10px)',
-      opacity: 0.1,
-    },
-    visible: {
-      filter: 'blur(0px)',
-      opacity: 1,
-      transition: { duration: 0.5, delay: 0.2 },
-    },
-  };
-
   // Only apply parallax when the container is in view
   const containerBottom =
     containerTop + (containerRef.current?.offsetHeight || 0);
@@ -97,13 +85,15 @@ const MultiLayerParallax = ({
       {/* Overlay Layer - Fixed to this section */}
       {overlayImage && (
         <motion.div
-          animate={controls}
+          initial={{ opacity: 0, filter: 'blur(10px)' }}
+          animate={{ opacity: 1, filter: 'blur(0px)' }}
+          transition={{ duration: 0.8, ease: 'easeIn' }}
           style={{
             position: 'absolute',
             top: 0,
             left: 0,
             width: '100%',
-            height: '120%',
+            height: '140%',
             transform: isInView
               ? `translateY(${-relativeScroll * Math.abs(overlaySpeed)}px)`
               : 'translateY(0px)',

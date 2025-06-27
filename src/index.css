@@ -9,19 +9,30 @@ body {
   scroll-behavior: smooth;
   font-family: "Inter";
   background-color: #3fa8d5;
+  /* Only hide horizontal overflow, allow vertical scrolling */
   overflow-x: hidden;
-  /* Hide scrollbars for webkit browsers (Chrome, Safari, Edge) */
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  overflow-y: auto;
 }
 
-/* Hide scrollbars for webkit browsers */
+/* Hide scrollbars while keeping scroll functionality */
 html::-webkit-scrollbar,
 body::-webkit-scrollbar {
-  display: none;
+  width: 0px;
+  background: transparent;
 }
 
-/* Ensure no horizontal scrolling on all elements */
+/* For Firefox */
+html {
+  scrollbar-width: none;
+}
+
+/* For Internet Explorer and Edge */
+html,
+body {
+  -ms-overflow-style: none;
+}
+
+/* Prevent horizontal scrolling on all elements, but allow vertical */
 * {
   max-width: 100%;
   overflow-x: hidden;
