@@ -1,12 +1,13 @@
 {
-  "name": "wang-real-estate",
-  "private": true,
+  "name": "real-estate",
+  "homepage": "https://fcancelinha.github.io/real-estate/",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "deploy": "bun run build && gh-pages -d dist",
+    "deploy": "gh-pages -d dist",
     "build": "vite build",
+    "predeploy": "npm run build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
