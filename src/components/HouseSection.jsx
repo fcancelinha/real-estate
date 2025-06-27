@@ -26,21 +26,81 @@ const houses = [
   },
 ];
 
+// Reusable styles
+const styles = {
+  textWhiteBold: {
+    color: 'white',
+    fontFamily: 'Inter, sans-serif',
+    fontWeight: 600,
+    mb: 1,
+  },
+  textWhiteLight: {
+    color: 'rgba(255,255,255,0.9)',
+    fontFamily: 'Inter, sans-serif',
+    fontWeight: 300,
+    mb: 1,
+  },
+  textGreen: {
+    color: '#4CAF50',
+    fontFamily: 'Inter, sans-serif',
+    fontWeight: 500,
+    mb: 1,
+  },
+  textWhiteFaded: {
+    color: 'rgba(255,255,255,0.8)',
+    fontFamily: 'Inter, sans-serif',
+    fontWeight: 300,
+  },
+  headerTitle: {
+    fontFamily: 'Inter, sans-serif',
+    fontWeight: 350,
+    letterSpacing: 2,
+    fontSize: { xs: '1.5rem', md: '2rem' },
+    mb: { xs: 3, md: 0 },
+    lineHeight: 1.3,
+    maxWidth: '100%',
+    whiteSpace: 'normal',
+  },
+  headerSubtitle: {
+    fontFamily: 'Inter, sans-serif',
+    fontWeight: 250,
+    letterSpacing: 1,
+    color: '#666',
+    fontSize: { xs: '0.8rem', md: '1rem' },
+    textAlign: { xs: 'center', md: 'right' },
+  },
+  chip: {
+    fontFamily: 'Inter, sans-serif',
+    fontWeight: 300,
+  },
+};
+
+// Animation variants
+const cardVariants = {
+  hidden: { y: -60, opacity: 0 },
+  visible: index => ({
+    y: 0,
+    opacity: 1,
+    transition: {
+      duration: 0.9,
+      delay: index * 0.25,
+      ease: 'easeInOut',
+    },
+  }),
+};
+
 const HouseCard = ({ house, index }) => {
   const [isHovered, setIsHovered] = useState(false);
   const cardRef = useRef(null);
-  const isInView = useInView(cardRef, { once: true, threshold: 0.1 });
+  const isInView = useInView(cardRef, { once: true, threshold: 0.15 });
 
   return (
     <motion.div
       ref={cardRef}
-      initial={{ y: 100, opacity: 0 }}
-      animate={isInView ? { y: 0, opacity: 1 } : { y: 100, opacity: 0 }}
-      transition={{
-        duration: 0.6,
-        delay: index * 0.2,
-        ease: 'easeOut',
-      }}
+      custom={index}
+      initial='hidden'
+      animate={isInView ? 'visible' : 'hidden'}
+      variants={cardVariants}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       style={{
@@ -48,16 +108,15 @@ const HouseCard = ({ house, index }) => {
         borderRadius: '12px',
         overflow: 'hidden',
         cursor: 'pointer',
-        height: '500px',
+        height: '450px',
+        backgroundColor: '#000',
       }}
     >
       <motion.img
         src={house.src}
         alt={house.title}
-        animate={{
-          scale: isHovered ? 1.05 : 1,
-        }}
-        transition={{ duration: 0.3, ease: 'easeOut' }}
+        animate={{ scale: isHovered ? 1.04 : 1 }}
+        transition={{ duration: 0.4, ease: 'easeOut' }}
         style={{
           width: '100%',
           height: '100%',
@@ -66,17 +125,13 @@ const HouseCard = ({ house, index }) => {
         }}
       />
 
-      {/* Overlay */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: isHovered ? 1 : 0 }}
         transition={{ duration: 0.3 }}
         style={{
           position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
+          inset: 0,
           background:
             'linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.7) 100%)',
           display: 'flex',
@@ -85,54 +140,21 @@ const HouseCard = ({ house, index }) => {
           padding: '20px',
         }}
       >
-        {/* Top content */}
         <Box>
-          <Typography
-            variant='h5'
-            sx={{
-              color: 'white',
-              fontFamily: 'Inter, sans-serif',
-              fontWeight: 600,
-              mb: 1,
-            }}
-          >
+          <Typography variant='h5' sx={styles.textWhiteBold}>
             {house.title}
           </Typography>
-          <Typography
-            variant='subtitle1'
-            sx={{
-              color: 'rgba(255,255,255,0.9)',
-              fontFamily: 'Inter, sans-serif',
-              fontWeight: 300,
-              mb: 1,
-            }}
-          >
+          <Typography variant='subtitle1' sx={styles.textWhiteLight}>
             {house.subtitle}
           </Typography>
-          <Typography
-            variant='h6'
-            sx={{
-              color: '#4CAF50',
-              fontFamily: 'Inter, sans-serif',
-              fontWeight: 500,
-              mb: 1,
-            }}
-          >
+          <Typography variant='h6' sx={styles.textGreen}>
             {house.rent}
           </Typography>
-          <Typography
-            variant='body2'
-            sx={{
-              color: 'rgba(255,255,255,0.8)',
-              fontFamily: 'Inter, sans-serif',
-              fontWeight: 300,
-            }}
-          >
+          <Typography variant='body2' sx={styles.textWhiteFaded}>
             {house.location}
           </Typography>
         </Box>
 
-        {/* Bottom button */}
         <Button
           variant='contained'
           sx={{
@@ -140,10 +162,10 @@ const HouseCard = ({ house, index }) => {
             color: '#333',
             fontFamily: 'Inter, sans-serif',
             fontWeight: 500,
+            alignSelf: 'flex-start',
             '&:hover': {
               backgroundColor: 'rgba(255,255,255,0.9)',
             },
-            alignSelf: 'flex-start',
           }}
         >
           Details
@@ -161,19 +183,19 @@ const HouseSection = () => {
     offset: ['start end', 'end start'],
   });
 
-  const y = useTransform(scrollY, [startScrollY, startScrollY + 300], [0, -60]);
+  const y = useTransform(scrollY, [startScrollY, startScrollY + 300], [0, -40]);
 
   useEffect(() => {
-    const updateScrollStart = () => {
+    const updateStart = () => {
       if (ref.current) {
         const rect = ref.current.getBoundingClientRect();
         setStartScrollY(window.scrollY + rect.top);
       }
     };
 
-    updateScrollStart();
-    window.addEventListener('resize', updateScrollStart);
-    return () => window.removeEventListener('resize', updateScrollStart);
+    updateStart();
+    window.addEventListener('resize', updateStart);
+    return () => window.removeEventListener('resize', updateStart);
   }, []);
 
   return (
@@ -182,91 +204,59 @@ const HouseSection = () => {
       style={{
         y,
         zIndex: 10,
-        position: 'relative',
-        margin: '0 auto',
+        overflow: 'hidden',
       }}
     >
-      <Box
+      <Stack
         sx={{
-          backgroundColor: '#ffffff',
-          padding: { xs: '3rem 1rem', md: '4rem 2rem' },
-          width: '100%',
-          borderTopLeftRadius: 40,
-          borderTopRightRadius: 40,
-          margin: '0 auto',
+          backgroundColor: '#fff',
+          padding: { xs: '3rem 1rem', md: '2rem 3rem' },
+          borderTopLeftRadius: { xs: 0, md: 40 },
+          borderTopRightRadius: { xs: 0, md: 40 },
         }}
       >
-        {/* Header Section */}
+        {/* Header */}
         <Box
-          mb={6}
+          mb={10}
+          maxWidth={'xl'}
+          width={'73vw'}
+          alignSelf={'center'}
           sx={{
             display: 'flex',
+            marginTop: 4,
             justifyContent: 'space-between',
             alignItems: 'center',
-            width: '100%',
             flexDirection: { xs: 'column', md: 'row' },
             textAlign: { xs: 'center', md: 'left' },
           }}
         >
-          {/* Left side - Main title */}
-          <Typography
-            variant='h3'
-            sx={{
-              fontFamily: 'Inter, sans-serif',
-              fontWeight: 200,
-              letterSpacing: 5,
-              fontSize: { xs: '1rem', md: '2rem' },
-              flex: 1,
-              mb: { xs: 3, md: 0 },
-            }}
-          >
+          <Typography variant='h2' sx={styles.headerTitle}>
             Properties under
-            <br /> Management
+            <br />
+            Management
           </Typography>
 
-          {/* Right side - Subtitle and chip */}
           <Stack
             spacing={2}
-            sx={{
-              alignItems: { xs: 'center', md: 'flex-end' },
-              flex: 1,
-              maxWidth: '400px',
-            }}
+            sx={{ alignItems: { xs: 'center', md: 'flex-end' }, maxWidth: 400 }}
           >
-            <Typography
-              variant='h6'
-              sx={{
-                fontFamily: 'Inter, sans-serif',
-                fontWeight: 200,
-                letterSpacing: 2,
-                color: '#666',
-                fontSize: { xs: '0.5rem', md: '1rem' },
-                textAlign: { xs: 'center', md: 'right' },
-              }}
-            >
+            <Typography variant='h6' sx={styles.headerSubtitle}>
               Browse our selection of top-rated modern architectural homes
               curated for you.
             </Typography>
-            <Chip
-              label='Top Picks'
-              color='primary'
-              sx={{
-                fontFamily: 'Inter, sans-serif',
-                fontWeight: 300,
-              }}
-            />
+            <Chip label='Top Picks' color='primary' sx={styles.chip} />
           </Stack>
         </Box>
 
-        {/* Houses Row */}
-        <Grid container spacing={3} justifyContent='center'>
+        {/* Cards */}
+        <Grid container spacing={5} justifyContent='center'>
           {houses.map((house, index) => (
             <Grid item xs={12} sm={6} md={4} key={index}>
               <HouseCard house={house} index={index} />
             </Grid>
           ))}
         </Grid>
-      </Box>
+      </Stack>
     </motion.div>
   );
 };
